@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست تسک‌های هفته</title>
+    <style>
+        * {
+            direction: rtl;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #B7B1F2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: #007c89;
+            margin-bottom: 15px;
+        }
+        .task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .task-list li {
+            background: #eef;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>لیست تسک‌های هفته</h2>
+        <h3>هفته اول</h3>
+        <ul class="task-list">
+            <li>ساخت یک شمارنده (Counter) که فقط با this کار کند</li>
+            <li>یک آبجکت بسازید که شمارنده‌ای داشته باشد. مقدار اولیه ۰ و متد increment مقدار را افزایش دهد.</li>
+            <li>نباید از متغیرهای سراسری یا متغیرهای داخل تابع استفاده کنید.</li>
+            <li>ساخت آبجکت `taskManager` برای مدیریت لیستی از کارها</li>
+            <li>متد `addTask(task)` برای افزودن تسک جدید</li>
+            <li>متد `showTasks()` برای نمایش تمام تسک‌ها در کنسول</li>
+            <li>متد `removeTask(index)` برای حذف یک تسک با ایندکس مشخص</li>
+        </ul>
+    </div>
+
+</body>
+</html>
