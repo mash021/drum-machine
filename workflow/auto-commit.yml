@@ -1,22 +1,28 @@
-name: Auto Commit
+name: Daily Multiple Commits
 
 on:
   schedule:
-    - cron: '0 12 * * *' # اجرای روزانه در ساعت 12 ظهر UTC
+    - cron: '0 0 * * *'  # اجرا هر روز در ساعت 00:00 UTC
+  workflow_dispatch:      # قابلیت اجرای دستی از GitHub Actions
 
 jobs:
   update:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Make changes
+      - name: Set up Git
         run: |
-          date >> log.txt
-          git config --global user.name "Your GitHub Username"
+          git config --global user.name "YourGitHubUsername"
           git config --global user.email "your-email@example.com"
-          git add .
-          git commit -m "Automated commit on $(date)"
+
+      - name: Make multiple commits
+        run: |
+          for i in {1..13}; do
+            echo "Commit $i on $(date)" >> daily-log.txt
+            git add daily-log.txt
+            git commit -m "Automated commit $i on $(date)"
+          done
           git push
-          
