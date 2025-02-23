@@ -1,13 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager Homework</title>
 </head>
 <body>
-    <script src="script.js"></script>
-    <script src="script1.js"></script>
+  <h1>Task Manager</h1>
+  <form id="taskForm">
+    <label for="taskInput">Enter a new task:</label>
+    <input type="text" id="taskInput" name="taskInput" required>
+    <button type="submit">Add Task</button>
+  </form>
+  <div id="output"></div>
 
+  <script src="script.js"></script>
+  <script src="script1.js"></script>
+  <script>
+    // Event listener for the task form submission
+    const taskForm = document.getElementById("taskForm");
+    const outputDiv = document.getElementById("output");
+    
+    taskForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const taskInput = document.getElementById("taskInput");
+      const newTask = taskInput.value.trim();
+      
+      if(newTask) {
+        taskManager.addTask(newTask);
+        taskInput.value = "";
+        
+        // Optional: refresh the displayed task list.
+        // Here we simply output the current tasks to the output div.
+        outputDiv.innerHTML = "<strong>Current Tasks:</strong><br>" + 
+          taskManager.tasks.map((t, i) => `${i + 1}. ${t}`).join("<br>");
+        
+        // Save tasks to JSON file using Node.js fs module:
+        import('fs').then(fsModule => {
+          const fs = fsModule.default;
+          fs.writeFileSync("tasks.json", JSON.stringify(taskManager.tasks, null, 2));
+          console.log("Tasks saved to tasks.json file.");
+        }).catch(err => console.error("Error loading fs module:", err));
+      }
+    });
+  </script>
 </body>
 </html>
