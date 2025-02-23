@@ -1,0 +1,22 @@
+name: Auto Commit
+
+on:
+  schedule:
+    - cron: '0 12 * * *' # اجرای روزانه در ساعت 12 ظهر UTC
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Make changes
+        run: |
+          date >> log.txt
+          git config --global user.name "Your GitHub Username"
+          git config --global user.email "your-email@example.com"
+          git add .
+          git commit -m "Automated commit on $(date)"
+          git push
+          
