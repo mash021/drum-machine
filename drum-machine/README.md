@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Smart Drum Machine
 
 A modern web-based drum machine with AI enhancement capabilities and beautiful LED animations.

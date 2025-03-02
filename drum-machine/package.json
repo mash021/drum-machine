@@ -1,0 +1,24 @@
+{
+  "name": "smart-drum-machine",
+  "version": "1.0.0",
+  "description": "A modern web-based drum machine with AI enhancement capabilities",
+  "main": "script.js",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "drum-machine",
+    "web-audio",
+    "javascript",
+    "ai",
+    "music"
+  ],
+  "author": "mash021",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  }
+} 
