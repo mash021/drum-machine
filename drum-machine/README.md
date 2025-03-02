@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Smart Drum Machine
 
 A modern web-based drum machine with AI enhancement capabilities and beautiful LED animations.
@@ -41,3 +42,10 @@ A modern web-based drum machine with AI enhancement capabilities and beautiful L
 ## License
 
 MIT License
+=======
+
+## How to use
+- Clone the repo
+- Run the exercises
+- Have fun learning JavaScript!
+>>>>>>> 66dee5a569ad0669c9805ea34508fc1634624189

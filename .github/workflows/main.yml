@@ -1,0 +1,30 @@
+
+name: Daily Multiple Commits
+
+on: schedule: - cron: '0 0 * * *'  # اجرا هر روز در ساعت 00:00 UTC workflow_dispatch:      # قابلیت اجرای دستی از GitHub Actions
+
+jobs: update: runs-on: ubuntu-latest
+
+steps:
+  - name: Checkout repository
+    uses: actions/checkout@v3
+
+  - name: Set up Git
+    run: |
+      git config --global user.name "github-actions[bot]"
+      git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+  - name: Make multiple commits
+    run: |
+      for i in {1..13}; do
+        echo "Commit $i on $(date)" >> daily-log.txt
+        git add daily-log.txt
+        git commit -m "Automated commit $i on $(date)"
+        sleep 1  # اضافه کردن تاخیر برای جلوگیری از فیلتر شدن کامیت‌ها
+      done
+
+  - name: Push changes
+    run: |
+      git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+      git push origin HEAD:main
+
