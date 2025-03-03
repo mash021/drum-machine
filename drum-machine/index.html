@@ -3,47 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smart Drum Machine</title>
+    <title>MPC X Style Drum Machine</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>Smart Drum Machine</h1>
-
-      <div class="drum-machine">
-        <div class="pads-container">
-          <div class="pad" data-sound="kick">Kick</div>
-          <div class="pad" data-sound="snare">Snare</div>
-          <div class="pad" data-sound="hihat">Hi-Hat</div>
-          <div class="pad" data-sound="clap">Clap</div>
-          <div class="pad" data-sound="tom">Tom</div>
-          <div class="pad" data-sound="cymbal">Cymbal</div>
-        </div>
-
-        <div class="controls">
-          <div class="tempo-control">
-            <label for="tempo">Tempo (BPM):</label>
-            <input type="range" id="tempo" min="60" max="180" value="120" />
-            <span id="tempo-value">120</span>
+    <div class="drum-machine">
+      <!-- LCD Screen -->
+      <div class="lcd-screen">
+        <div class="lcd-content">
+          <div class="pixel-grid">
+            <!-- Pixels will be added by JavaScript -->
           </div>
-
-          <div class="pattern-controls">
-            <button id="random-pattern">Random Pattern</button>
-            <button id="ai-enhance">AI Enhance</button>
+          <div class="pattern-display">
+            <div id="bpm-display">BPM: 120</div>
+            <div id="pattern-display">PAT: 1</div>
+            <div id="status-display">READY</div>
           </div>
-
-          <div class="transport">
-            <button id="play">Play</button>
-            <button id="stop">Stop</button>
+          <div class="step-indicators">
+            <!-- Step indicators will be added by JavaScript -->
           </div>
-        </div>
-
-        <div class="pattern-editor">
-          <h2>Pattern Editor</h2>
-          <div id="pattern-grid"></div>
         </div>
       </div>
+
+      <!-- MPC Style Pads -->
+      <div class="pads-grid">
+        <button class="pad" data-sound="kick">KICK</button>
+        <button class="pad" data-sound="snare">SNR</button>
+        <button class="pad" data-sound="hihat">HAT</button>
+        <button class="pad" data-sound="clap">CLP</button>
+        <button class="pad" data-sound="tom">TOM</button>
+        <button class="pad" data-sound="cymbal">CYM</button>
+        <button class="pad" data-sound="perc1">PRC1</button>
+        <button class="pad" data-sound="perc2">PRC2</button>
+      </div>
+
+      <!-- Knobs and Controls -->
+      <div class="controls">
+        <div class="knob-group">
+          <div class="knob" id="volume-knob">
+            <label>VOL</label>
+          </div>
+          <div class="knob" id="tempo-knob">
+            <label>BPM</label>
+          </div>
+          <div class="knob" id="swing-knob">
+            <label>SWING</label>
+          </div>
+          <div class="knob" id="filter-knob">
+            <label>FILTER</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transport Controls -->
+      <div class="transport">
+        <button class="transport-button" id="play">PLAY</button>
+        <button class="transport-button" id="stop">STOP</button>
+        <button class="transport-button" id="record">REC</button>
+        <button class="transport-button" id="clear">CLR</button>
+      </div>
+
+      <!-- Pattern Management -->
+      <div class="pattern-controls">
+        <button class="transport-button" id="prev-pattern">&lt;</button>
+        <span id="pattern-number">PAT 1</span>
+        <button class="transport-button" id="next-pattern">&gt;</button>
+        <button class="transport-button" id="save">SAVE</button>
+        <button class="transport-button" id="load">LOAD</button>
+      </div>
     </div>
+
     <script src="script.js"></script>
   </body>
 </html>

@@ -7,13 +7,31 @@
   font-family: "Roboto", sans-serif;
 }
 
+:root {
+  --wood-color: #8b4513;
+  --wood-dark: #5c2c0c;
+  --led-color: #32cd32;
+  --panel-color: #222;
+  --main-bg: #2a2a2a;
+  --pad-color: #404040;
+  --pad-active: #606060;
+  --lcd-bg: #1c381c;
+  --lcd-text: #7fff7f;
+  --knob-color: #808080;
+  --button-color: #606060;
+  --border-color: #505050;
+}
+
 body {
-  background: #1a1a1a;
+  background: #121212;
   color: #fff;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0;
+  padding: 20px;
+  font-family: "Digital-7", monospace;
 }
 
 .container {
@@ -30,108 +48,188 @@ h1 {
 }
 
 .drum-machine {
-  background: #2a2a2a;
-  border-radius: 15px;
-  padding: 2rem;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+  position: relative;
+  background: var(--main-bg);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 0 2px var(--border-color), 0 10px 20px rgba(0, 0, 0, 0.5);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 800px;
 }
 
-.pads-container {
+/* چوبی کناری پنل‌های */
+.wood-panel-left,
+.wood-panel-right {
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 100%;
+  background: var(--wood-color);
+  background-image: linear-gradient(
+    90deg,
+    var(--wood-dark) 0%,
+    var(--wood-color) 20%,
+    var(--wood-color) 80%,
+    var(--wood-dark) 100%
+  );
+}
+
+.wood-panel-left {
+  left: -40px;
+  border-radius: 10px 0 0 10px;
+}
+
+.wood-panel-right {
+  right: -40px;
+  border-radius: 0 10px 10px 0;
+}
+
+.display {
+  background: #000;
+  color: var(--led-color);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-family: "Digital-7", monospace;
+  text-align: center;
+  text-shadow: 0 0 5px var(--led-color);
+}
+
+.pads {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .pad {
-  aspect-ratio: 1;
-  background: #333;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 80px;
+  height: 80px;
+  background: #444;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.1s;
-  position: relative;
-  overflow: hidden;
-  text-transform: uppercase;
-  font-weight: bold;
-  letter-spacing: 1px;
+  box-shadow: 0 4px 0 #222;
 }
 
-.pad::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(0, 255, 0, 0.2) 0%,
-    transparent 70%
-  );
-  opacity: 0;
-  transition: opacity 0.1s;
-}
-
-.pad.active::before {
-  opacity: 1;
-}
-
+.pad:active,
 .pad.active {
-  background: #00ff00;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #222;
+  background: #666;
 }
 
 .controls {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
-.tempo-control {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-input[type="range"] {
-  flex: 1;
-  height: 5px;
+.control {
   background: #333;
-  border-radius: 5px;
-  -webkit-appearance: none;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  background: #00ff00;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-}
-
-button {
-  padding: 0.8rem 1.5rem;
+  color: var(--led-color);
   border: none;
+  padding: 10px;
   border-radius: 5px;
-  background: #333;
-  color: #fff;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.3s;
 }
 
-button:hover {
+.control:hover {
   background: #444;
 }
 
-button.active {
-  background: #00ff00;
-  color: #000;
+/* رترو LED نمایشگر */
+.led-display {
+  background: #000;
+  color: var(--led-color);
+  font-family: "Digital-7", monospace;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* رترو دکمه‌های */
+.retro-button {
+  background: #444;
+  color: #fff;
+  border: 2px solid #666;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-family: "Arial", sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.retro-button:hover {
+  background: #555;
+  border-color: #777;
+}
+
+/* TR-808 سبک به رنگی دکمه‌های */
+.pad-kick {
+  background: #ff5252;
+}
+.pad-snare {
+  background: #ff9800;
+}
+.pad-hihat {
+  background: #ffeb3b;
+}
+.pad-clap {
+  background: #4caf50;
+}
+.pad-tom {
+  background: #2196f3;
+}
+.pad-cymbal {
+  background: #9c27b0;
+}
+
+/* رترو اسلایدر */
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 20px;
+  background: #333;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 25px;
+  height: 25px;
+  background: var(--led-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* پترن گرید */
+.pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  gap: 5px;
+  margin: 20px 0;
+}
+
+.grid-cell {
+  width: 30px;
+  height: 30px;
+  background: #333;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.grid-cell.active {
+  background: var(--led-color);
+  box-shadow: 0 0 10px var(--led-color);
 }
 
 .pattern-editor {
@@ -177,4 +275,202 @@ button.active {
 
 .pad.active {
   animation: pulse 0.1s ease-in-out;
+}
+
+/* LCD Display */
+.lcd-screen {
+  background: var(--lcd-bg);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  height: 120px;
+}
+
+.lcd-content {
+  color: var(--lcd-text);
+  font-family: "VT323", monospace;
+  font-size: 24px;
+  text-shadow: 0 0 5px var(--lcd-text);
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* MPC Style Pads */
+.pads-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  padding: 20px;
+}
+
+.pad {
+  aspect-ratio: 1;
+  background: var(--pad-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.1s;
+  box-shadow: 0 4px 0 #222, inset 0 2px 5px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+  min-height: 100px;
+}
+
+.pad:active,
+.pad.active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #222, inset 0 2px 5px rgba(255, 255, 255, 0.1);
+  background: var(--pad-active);
+}
+
+/* Knobs and Controls */
+.controls {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  padding: 20px;
+}
+
+.knob {
+  width: 60px;
+  height: 60px;
+  background: var(--knob-color);
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2),
+    inset 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+.knob::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 20px;
+  background: #fff;
+  transform-origin: bottom center;
+  transform: translate(-50%, -100%);
+}
+
+/* Transport Controls */
+.transport {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.transport-button {
+  background: var(--button-color);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2),
+    inset 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+.transport-button:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+/* LCD Animation Effects */
+.lcd-screen::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    transparent 0%,
+    rgba(32, 128, 32, 0.2) 50%,
+    transparent 100%
+  );
+  animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* Pocket Operator Style Elements */
+.pixel-grid {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  gap: 2px;
+  margin: 10px 0;
+}
+
+.pixel {
+  aspect-ratio: 1;
+  background: var(--lcd-text);
+  opacity: 0.2;
+}
+
+.pixel.active {
+  opacity: 1;
+  animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Pattern Display */
+.pattern-display {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: var(--lcd-text);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.step-indicator {
+  height: 5px;
+  background: var(--lcd-text);
+  opacity: 0.3;
+}
+
+.step-indicator.active {
+  opacity: 1;
+  animation: pulse 0.2s infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
 }
