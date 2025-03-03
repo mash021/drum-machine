@@ -1,19 +1,28 @@
-<<<<<<< HEAD
 class DrumMachine {
   constructor() {
     this.audioContext = new (window.AudioContext ||
       window.webkitAudioContext)();
     this.isPlaying = false;
+    this.isRecording = false;
     this.currentStep = 0;
     this.tempo = 120;
     this.steps = 16;
-    this.pattern = this.createEmptyPattern();
+    this.currentPattern = 1;
+    this.patterns = {
+      1: this.createEmptyPattern(),
+      2: this.createEmptyPattern(),
+      3: this.createEmptyPattern(),
+      4: this.createEmptyPattern(),
+    };
+    this.pattern = this.patterns[1];
     this.sounds = {};
     this.nextStepTime = 0;
+    this.recordedPattern = null;
 
     this.initializeSounds();
     this.initializeUI();
     this.setupEventListeners();
+    this.updateDisplay();
   }
 
   async initializeSounds() {
@@ -138,6 +147,57 @@ class DrumMachine {
     document
       .getElementById("ai-enhance")
       .addEventListener("click", () => this.enhancePattern());
+
+    // Pattern navigation
+    document.getElementById("prev-pattern").addEventListener("click", () => {
+      this.currentPattern = Math.max(1, this.currentPattern - 1);
+      this.pattern = this.patterns[this.currentPattern];
+      this.updateDisplay();
+      this.updateGridDisplay();
+    });
+
+    document.getElementById("next-pattern").addEventListener("click", () => {
+      this.currentPattern = Math.min(4, this.currentPattern + 1);
+      this.pattern = this.patterns[this.currentPattern];
+      this.updateDisplay();
+      this.updateGridDisplay();
+    });
+
+    // Record button
+    document.getElementById("record").addEventListener("click", () => {
+      this.isRecording = !this.isRecording;
+      document.getElementById("record").classList.toggle("active");
+      document.getElementById("status-display").textContent = this.isRecording
+        ? "RECORDING"
+        : "READY";
+    });
+
+    // Save/Load pattern
+    document.getElementById("save-pattern").addEventListener("click", () => {
+      const patternData = JSON.stringify(this.patterns);
+      localStorage.setItem("drumPatterns", patternData);
+      document.getElementById("status-display").textContent = "SAVED";
+      setTimeout(() => {
+        document.getElementById("status-display").textContent = this.isPlaying
+          ? "PLAYING"
+          : "READY";
+      }, 1000);
+    });
+
+    document.getElementById("load-pattern").addEventListener("click", () => {
+      const savedPatterns = localStorage.getItem("drumPatterns");
+      if (savedPatterns) {
+        this.patterns = JSON.parse(savedPatterns);
+        this.pattern = this.patterns[this.currentPattern];
+        this.updateGridDisplay();
+        document.getElementById("status-display").textContent = "LOADED";
+        setTimeout(() => {
+          document.getElementById("status-display").textContent = this.isPlaying
+            ? "PLAYING"
+            : "READY";
+        }, 1000);
+      }
+    });
   }
 
   getActiveSound() {
@@ -155,8 +215,15 @@ class DrumMachine {
   playSound(sound) {
     if (this.sounds[sound]) {
       const source = this.audioContext.createBufferSource();
+      const gainNode = this.audioContext.createGain();
+
       source.buffer = this.sounds[sound];
-      source.connect(this.audioContext.destination);
+      source.connect(gainNode);
+      gainNode.connect(this.audioContext.destination);
+
+      // Add some randomization to velocity
+      gainNode.gain.value = 0.7 + Math.random() * 0.3;
+
       source.start(0);
     }
   }
@@ -212,6 +279,15 @@ class DrumMachine {
         this.playSound(sound);
       }
     });
+
+    // Record if recording is active
+    if (this.isRecording) {
+      const activeSound = this.getActiveSound();
+      if (activeSound) {
+        this.pattern[activeSound][this.currentStep] = true;
+        this.updateGridDisplay();
+      }
+    }
   }
 
   updateGridDisplay() {
@@ -249,29 +325,19 @@ class DrumMachine {
       this.updateGridDisplay();
     }
   }
+
+  updateDisplay() {
+    document.getElementById("bpm-display").textContent = `BPM: ${this.tempo}`;
+    document.getElementById(
+      "pattern-display"
+    ).textContent = `PATTERN: ${this.currentPattern}`;
+    document.getElementById(
+      "pattern-number"
+    ).textContent = `Pattern ${this.currentPattern}`;
+  }
 }
 
 // Initialize the drum machine when the page loads
 window.addEventListener("load", () => {
   const drumMachine = new DrumMachine();
 });
-=======
-function timeUntilNextBirthday(birthYear, birthMonth, birthDay) {
-    const today = new Date();
-    const currentYear = today.getFullYear();
-    let nextBirthday = new Date(currentYear, birthMonth - 1, birthDay);
-
-    if (nextBirthday < today) {
-        nextBirthday.setFullYear(currentYear + 1);
-    }
-
-    const timeDiff = nextBirthday - today;
-    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-
-    return `تا تولد بعدی شما (${birthYear}-${birthMonth}-${birthDay})، ${days} روز، ${hours} ساعت و ${minutes} دقیقه باقی مانده است.`;
-}
-
-console.log(timeUntilNextBirthday(1988, 9, 21));
->>>>>>> 66dee5a569ad0669c9805ea34508fc1634624189
