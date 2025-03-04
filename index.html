@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roland SP-303 Emulator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="sp303-container">
+      <div class="sp303">
+        <div class="wood-panel left"></div>
+        <div class="main-panel">
+          <div class="brand">
+            <h1>Headroom AoDo</h1>
+          </div>
+          <div class="display-section">
+            <div class="display">
+              <div class="lcd-screen"></div>
+            </div>
+          </div>
+          <div class="controls-section">
+            <div class="knobs-row">
+              <div class="knob-container">
+                <div class="knob" id="volume"></div>
+                <span class="knob-label">VOLUME</span>
+              </div>
+              <div class="knob-container">
+                <div class="knob" id="tone"></div>
+                <span class="knob-label">TONE</span>
+              </div>
+              <div class="knob-container">
+                <div class="knob" id="effect"></div>
+                <span class="knob-label">EFFECT</span>
+              </div>
+              <div class="knob-container">
+                <div class="knob" id="mix"></div>
+                <span class="knob-label">MIX</span>
+              </div>
+            </div>
+            <div class="pads-section">
+              <div class="pads-grid">
+                <div class="pad" data-pad="1"><span>1</span></div>
+                <div class="pad" data-pad="2"><span>2</span></div>
+                <div class="pad" data-pad="3"><span>3</span></div>
+                <div class="pad" data-pad="4"><span>4</span></div>
+                <div class="pad" data-pad="5"><span>5</span></div>
+                <div class="pad" data-pad="6"><span>6</span></div>
+                <div class="pad" data-pad="7"><span>7</span></div>
+                <div class="pad" data-pad="8"><span>8</span></div>
+              </div>
+            </div>
+            <div class="buttons-section">
+              <button class="ctrl-btn">REMAIN</button>
+              <button class="ctrl-btn">RESAMPLE</button>
+              <button class="ctrl-btn">CANCEL</button>
+              <button class="ctrl-btn">DEL</button>
+              <button class="ctrl-btn">REC</button>
+              <button class="ctrl-btn">PLAY</button>
+            </div>
+          </div>
+        </div>
+        <div class="wood-panel right"></div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
