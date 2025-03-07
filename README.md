@@ -2,4 +2,5 @@
 ## 🎨 CodePen Project  
 
 📌 **My CodePen Design**  
-![CodePen Project]([https://raw.githubusercontent.com/mash021/mash021/main/codepen-screenshot.png](https://codepen.io/mash_021/pen/WbNpMWJ))
+
+<img src="Screenshot 2025-03-07 at 17.08.10.png" alt="drum" >
